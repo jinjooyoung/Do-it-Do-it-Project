@@ -11,12 +11,12 @@ public class playerscript : MonoBehaviour
 
     float hAxis;
     float vAxis;
-/*
-    bool WDown;*/
-    //bool jump;
+
+    /*bool WDown;
+    bool jump;
 
 
-    //bool isJump;
+    bool isJump;    //기능 생략*/
 
     Vector3 moveVec;
 
@@ -24,10 +24,11 @@ public class playerscript : MonoBehaviour
     Animator anim;
 
     GameObject nearObject;
+
     void Awake()
     {
-        rb = GetComponent<Rigidbody>();
-        anim = GetComponentInChildren<Animator>();
+        rb = GetComponent<Rigidbody>(); //리지드바디 컴포넌트에 rb할당
+        anim = GetComponentInChildren<Animator>();  //애니메이터 컴포넌트에 anim할당
 
     }
     void Update()
@@ -37,6 +38,7 @@ public class playerscript : MonoBehaviour
         Turn();
         //Jump();
 
+        //함수 불러오기 (밑에 함수)
     }
 
 
@@ -44,28 +46,30 @@ public class playerscript : MonoBehaviour
     {
         hAxis = Input.GetAxisRaw("Horizontal");
         vAxis = Input.GetAxisRaw("Vertical");
-    /*    WDown = Input.GetButton("wolk");*/
-        //jump = Input.GetButtonDown("Jump");
+        /*WDown = Input.GetButton("wolk");
+        jump = Input.GetButtonDown("Jump");*/
 
-
+        //Axis를 불러와서 변수에 저장
 
     }
     
 
     void Move()
     {
-        moveVec = new Vector3(hAxis, 0, vAxis).normalized;
+        moveVec = new Vector3(hAxis, 0, vAxis).normalized;  //실질적인 이동 구현
 
-        transform.position += moveVec * speed * Time.deltaTime;
+        transform.position += moveVec * speed * Time.deltaTime; //렌더
 
-        anim.SetBool("isRun", moveVec != Vector3.zero);
-/*        anim.SetBool("isWolk", WDown);*/
+        anim.SetBool("isRun", moveVec != Vector3.zero);     //이동속도가 zero가 아닐 때 이동 애니메이션
+        //anim.SetBool("isWolk", WDown);
     }
 
     void Turn()
     {
-        transform.LookAt(transform.position + moveVec);
+        transform.LookAt(transform.position + moveVec);     //보는 화면으로 회전
     }
+
+    //탑뷰 게임이라서 점프는 생략
 
     /*void Jump() // 점프
     {
