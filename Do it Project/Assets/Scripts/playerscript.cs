@@ -21,14 +21,14 @@ public class playerscript : MonoBehaviour
     Vector3 moveVec;
 
     Rigidbody rb; // 케릭터를 움직이기 위해 선언
-    Animator anim;
+    //Animator anim;
 
     GameObject nearObject;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>(); //리지드바디 컴포넌트에 rb할당
-        anim = GetComponentInChildren<Animator>();  //애니메이터 컴포넌트에 anim할당
+        //anim = GetComponentInChildren<Animator>();  //애니메이터 컴포넌트에 anim할당
 
     }
     void Update()
@@ -60,7 +60,7 @@ public class playerscript : MonoBehaviour
 
         transform.position += moveVec * speed * Time.deltaTime; //렌더
 
-        anim.SetBool("isRun", moveVec != Vector3.zero);     //이동속도가 zero가 아닐 때 이동 애니메이션
+     //   anim.SetBool("isRun", moveVec != Vector3.zero);     //이동속도가 zero가 아닐 때 이동 애니메이션
         //anim.SetBool("isWolk", WDown);
     }
 
