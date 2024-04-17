@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1018,6 +1018,7 @@ GameObject:
   - component: {fileID: 1922355050}
   - component: {fileID: 1922355049}
   - component: {fileID: 1922355048}
+  - component: {fileID: 1922355056}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1087,6 +1088,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   itemCount: 3
+  attackTime: 0.3
+  attackTimer: 0
+  isAttack: 0
+  weaponType: 0
+  attackArea: {fileID: 0}
 --- !u!136 &1922355051
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1175,6 +1181,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1922355056
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922355047}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.6400131, z: 3.179175}
+  m_Center: {x: 0, y: -0.2219463, z: 1.0895875}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

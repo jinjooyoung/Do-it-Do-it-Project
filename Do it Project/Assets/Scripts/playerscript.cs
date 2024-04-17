@@ -2,13 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
-
+public enum Type { Melee, Eange }
 public class playerscript : MonoBehaviour
 {
     public float speed;
     public int itemCount;
-
+    public float attackTime = 0.3f;         // 공격 쿨타임
+    public float attackTimer;                   // 공격 쿨타임 계산용
+    public bool isAttack;
+    public Type weaponType = Type.Melee;
+    public BoxCollider attackArea;
     float hAxis;
     float vAxis;
 
@@ -28,8 +33,9 @@ public class playerscript : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>(); //리지드바디 컴포넌트에 rb할당
+        attackArea = GetComponent<BoxCollider>();
+        attackArea.enabled = false;
         //anim = GetComponentInChildren<Animator>();  //애니메이터 컴포넌트에 anim할당
-
     }
     void Update()
     {
@@ -37,7 +43,7 @@ public class playerscript : MonoBehaviour
         Move();
         Turn();
         //Jump();
-
+        Attack();
         //함수 불러오기 (밑에 함수)
     }
 
@@ -67,6 +73,37 @@ public class playerscript : MonoBehaviour
     void Turn()
     {
         transform.LookAt(transform.position + moveVec);     //보는 화면으로 회전
+    }
+
+    private void Attack()
+    {
+        if(weaponType == Type.Melee)
+        {
+            attackArea.enabled = isAttack;
+        }
+        else if(weaponType == Type.Eange)
+        {
+            //Eange();
+        }
+
+
+        if (isAttack == false)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                isAttack = true;
+                attackTimer = attackTime;
+            }
+        }
+        else // isAttack == true
+        {
+            attackTimer -= Time.deltaTime;
+
+            if (attackTimer <= 0)
+            {
+                isAttack = false;
+            }
+        }
     }
 
     //탑뷰 게임이라서 점프는 생략
