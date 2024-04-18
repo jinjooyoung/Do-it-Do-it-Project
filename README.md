@@ -4,6 +4,6 @@
 
 ## 적AI 프로그래 링크
 https://flowtree.tistory.com/19<BR>
-![Uploading image.png…]()
+
 
 
