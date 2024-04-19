@@ -6,18 +6,19 @@ public class PlayerController : MonoBehaviour
 {
     public Rigidbody2D rb;
     public float speed = 8.0f;
-    Animator animator;
+    private Animator playerAnimator;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        this.animator = GetComponent<Animator>();
+        this.playerAnimator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //이동
         float xInput = Input.GetAxis("Horizontal");
         float yInput = Input.GetAxis("Vertical");
 
@@ -25,10 +26,19 @@ public class PlayerController : MonoBehaviour
         float xSpeed = xInput * speed;
         float ySpeed = yInput * speed;
 
-        //Vector3 속도를 (xSpeed, 0, zSpeed)로 생성
-        Vector3 newVelocity = new Vector3(xSpeed, ySpeed, 0);
+        Vector2 newVelocity = new Vector3(xSpeed, ySpeed); //2D 게임이므로 Vector3를 쓸 필요가 없음
         //리지드바디의 속도에 newVelocity 할당
         rb.velocity = newVelocity;
+
+
+
+        /* //애니메이션
+         if (Input.GetKeyDown(KeyCode.A))
+         {
+             this.playerAnimator.SetTrigger("WalkTrigger");
+         }*/
+        //playerAnimator.SetFloat("MoveX", Input.GetAxisRaw("Horizontal"));\
+        playerAnimator.SetFloat("MoveX", Input.GetAxisRaw("Horizontal"));
     }
 
 }
