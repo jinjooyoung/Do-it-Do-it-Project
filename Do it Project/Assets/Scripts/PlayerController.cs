@@ -26,19 +26,18 @@ public class PlayerController : MonoBehaviour
         float xSpeed = xInput * speed;
         float ySpeed = yInput * speed;
 
-        Vector2 newVelocity = new Vector3(xSpeed, ySpeed); //2D 게임이므로 Vector3를 쓸 필요가 없음
+        Vector2 newVelocity = new Vector2(xSpeed, ySpeed); //2D 게임이므로 Vector3를 쓸 필요가 없음
         //리지드바디의 속도에 newVelocity 할당
         rb.velocity = newVelocity;
 
 
-
-        /* //애니메이션
-         if (Input.GetKeyDown(KeyCode.A))
-         {
-             this.playerAnimator.SetTrigger("WalkTrigger");
-         }*/
-        //playerAnimator.SetFloat("MoveX", Input.GetAxisRaw("Horizontal"));\
-        playerAnimator.SetFloat("MoveX", Input.GetAxisRaw("Horizontal"));
+        if (rb.velocity.x! < 0)
+        {
+            playerAnimator.SetBool("Walk_Left", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("Walk_Left", false);
+        }
     }
-
 }
