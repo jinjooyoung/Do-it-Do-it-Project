@@ -1395,10 +1395,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 794104498}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d338c7bc3353214f92c6be722773e0c, type: 3}
+  m_Script: {fileID: 11500000, guid: 77d903404472507419f73182a01b4c13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  exitDoor: {fileID: 1446309287}
+  direction: 3
+  mainCamTransform: {fileID: 0}
+  offSetNSCharater: 1.5
+  offSetNSCamera: 10
+  offSetEWCharater: 2.6
+  offSetEWCamera: 20
 --- !u!1 &861259829
 GameObject:
   m_ObjectHideFlags: 0
@@ -2386,7 +2391,7 @@ GameObject:
   - component: {fileID: 1446309291}
   - component: {fileID: 1446309290}
   - component: {fileID: 1446309289}
-  - component: {fileID: 1446309288}
+  - component: {fileID: 1446309292}
   m_Layer: 3
   m_Name: Door (1)
   m_TagString: Collider
@@ -2409,19 +2414,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 348841306}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1446309288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1446309286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa2053b7bdf76d94987a8a606f21c092, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  exitDoor: {fileID: 794104502}
 --- !u!61 &1446309289
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2517,6 +2509,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1446309286}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1446309292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446309286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77d903404472507419f73182a01b4c13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 1
+  mainCamTransform: {fileID: 0}
+  offSetNSCharater: 1.5
+  offSetNSCamera: 10
+  offSetEWCharater: 2.6
+  offSetEWCamera: 20
 --- !u!1 &1593849839
 GameObject:
   m_ObjectHideFlags: 0

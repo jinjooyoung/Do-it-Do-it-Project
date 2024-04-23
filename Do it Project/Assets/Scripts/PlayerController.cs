@@ -30,14 +30,16 @@ public class PlayerController : MonoBehaviour
         //리지드바디의 속도에 newVelocity 할당
         rb.velocity = newVelocity;
 
+        playerAnimator.SetFloat("HorizontalAxis", Input.GetAxis("Horizontal"));
 
-        if (rb.velocity.x! < 0)
-        {
-            playerAnimator.SetBool("Walk_Left", true);
-        }
-        else
-        {
-            playerAnimator.SetBool("Walk_Left", false);
-        }
+
+        //if (rb.velocity.x! < 0)
+        //{
+        //    playerAnimator.SetBool("Walk_Left", true);
+        //}
+        //else
+        //{
+        //    playerAnimator.SetBool("Walk_Left", false);
+        //}
     }
 }
