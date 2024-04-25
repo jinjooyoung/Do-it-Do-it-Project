@@ -18,7 +18,7 @@ public class EnemyContorll : MonoBehaviour
 
     public Transform tr;
 
-    private float attackRange = 2.3f;
+    //private float attackRange = 2.3f;
 
     private bool hasTarget
     {
@@ -31,7 +31,7 @@ public class EnemyContorll : MonoBehaviour
             }
 
             //그렇지 않다면 false
-            return false;
+            //return false;
         }
     }
 

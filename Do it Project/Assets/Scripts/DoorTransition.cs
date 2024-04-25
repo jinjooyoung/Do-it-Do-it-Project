@@ -8,10 +8,10 @@ public class DoorTransition : MonoBehaviour
     //public Transform exitDoor;
     public Transform mainCamTransform;
 
-    public float offSetNSCharater = 1.5f;
-    public float offSetNSCamera = 10f;
-    public float offSetEWCharater = 2.53f;
-    public float offSetEWCamera = 20f;
+    public float offSetNSCharater = 1.5f;       // 위아래 캐릭터 이동 거리    
+    public float offSetNSCamera = 10f;          // 위아래 카메라 이동 거리
+    public float offSetEWCharater = 2.53f;      // 좌우 캐릭터 이동 거리 
+    public float offSetEWCamera = 20f;          // 좌우 카메라 이동 거리
 
     void Start()
     {
@@ -22,28 +22,23 @@ public class DoorTransition : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")  //부딪힌 오브젝트의 태그가 플레이어일 때
         {
-
-            Debug.Log("충돌 났따!~");
-            if (direction == 0)
+            if (direction == 0) // 북쪽
             {
-                Debug.Log("북쪽 났따!~");
                 other.transform.position += new Vector3(0, offSetNSCharater, 0);
                 mainCamTransform.position += new Vector3(0f, offSetNSCamera, 0f);
             }
-            else if (direction == 2)
+            else if (direction == 2)    // 남쪽
             {
                 other.transform.position += new Vector3(0, -offSetNSCharater, 0);
                 mainCamTransform.position += new Vector3(0f, -offSetNSCamera, 0f);
             }
-            else if (direction == 1)
+            else if (direction == 1)    // 동쪽
             {
-                Debug.Log("동쪽 났따!~");
                 other.transform.position += new Vector3(offSetEWCharater, 0f, 0);
                 mainCamTransform.position += new Vector3(offSetEWCamera, 0f, 0f);
             }
-            else if (direction == 3)
+            else if (direction == 3)    // 서쪽
             {
-                Debug.Log("서쪽 났따!~");
                 other.transform.position += new Vector3(-offSetEWCharater, 0f, 0f);
                 mainCamTransform.position += new Vector3(-offSetEWCamera, 0f, 0f);
             }
