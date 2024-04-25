@@ -159,7 +159,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 0.20392159, g: 0.32941177, b: 0.10588236, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1259,7 +1259,7 @@ GameObject:
   - component: {fileID: 794104501}
   - component: {fileID: 794104500}
   - component: {fileID: 794104503}
-  - component: {fileID: 794104504}
+  - component: {fileID: 794104505}
   m_Layer: 3
   m_Name: Door
   m_TagString: Collider
@@ -1274,7 +1274,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 794104498}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1377,7 +1377,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &794104504
+--- !u!114 &794104505
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1386,14 +1386,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 794104498}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77d903404472507419f73182a01b4c13, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a3bed778dcb3784995df84ec72b7362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 3
   mainCamTransform: {fileID: 0}
+  duration: 1
+  ease: 18
   offSetNSCharater: 1.5
   offSetNSCamera: 10
-  offSetEWCharater: 2.6
+  offSetEWCharater: 2.53
   offSetEWCamera: 20
 --- !u!1 &861259829
 GameObject:
@@ -2414,7 +2416,7 @@ GameObject:
   - component: {fileID: 1446309291}
   - component: {fileID: 1446309290}
   - component: {fileID: 1446309289}
-  - component: {fileID: 1446309292}
+  - component: {fileID: 1446309293}
   m_Layer: 3
   m_Name: Door
   m_TagString: Collider
@@ -2489,7 +2491,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1446309286}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2532,7 +2534,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1446309286}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1446309292
+--- !u!114 &1446309293
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2541,14 +2543,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1446309286}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77d903404472507419f73182a01b4c13, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a3bed778dcb3784995df84ec72b7362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 1
   mainCamTransform: {fileID: 0}
+  duration: 1
+  ease: 18
   offSetNSCharater: 1.5
   offSetNSCamera: 10
-  offSetEWCharater: 2.6
+  offSetEWCharater: 2.53
   offSetEWCamera: 20
 --- !u!1 &1593849839
 GameObject:

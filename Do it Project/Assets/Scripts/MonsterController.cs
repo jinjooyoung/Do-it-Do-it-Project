@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyContorll : MonoBehaviour
+public class MonsterController : MonoBehaviour
 {
     public LayerMask whatIsTarget; //추적대상 레이어
     private NavMeshAgent pathFinder; //경로 계산 AI 에이전트

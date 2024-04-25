@@ -10,7 +10,6 @@ public class LivingEntity : MonoBehaviour
 
     // protected 클래스 외부에서는 기본적으로 접근할 수 없으나 파생 클래스(자식 클래스)에서는 접근이 가능하다.
     public float health {  get; protected set; } //현재 체력  
-    public float mana { get; protected set; }   // 현제 마나
     public bool dead {  get; protected set; } // 사망 상테  
 
     //생명체가 활성화될 떄 상태를 리셋
@@ -21,7 +20,6 @@ public class LivingEntity : MonoBehaviour
         dead = false;
          //체력을 시작 체력으로 초기화
         health = startingHealth;
-        mana = startingMana;
     }
 
     // 피해를 받는 기능

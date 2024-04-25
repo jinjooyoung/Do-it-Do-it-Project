@@ -9,7 +9,7 @@ public class playerscript : MonoBehaviour
 {
     public float speed;
     public int itemCount;
-    public float attackTime = 0.3f;         // 공격 쿨타임
+    public float attackTime = 0.3f;          // 공격 쿨타임
     public float attackTimer;                   // 공격 쿨타임 계산용
     public bool isAttack;
     public Type weaponType = Type.Melee;
