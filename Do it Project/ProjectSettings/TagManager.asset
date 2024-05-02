@@ -7,6 +7,8 @@ TagManager:
   - Collider
   - BackGround
   - Monster
+  - Enemy Collision1
+  - Enemy Collision2
   layers:
   - Default
   - TransparentFX
