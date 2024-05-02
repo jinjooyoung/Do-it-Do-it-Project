@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Collider
   - BackGround
+  - Monster
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - BackGround_Behind
   - BackGround_Front
   - OnDamage
-  - 
+  - Monster
   - 
   - 
   - 
