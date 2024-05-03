@@ -4,42 +4,116 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Rigidbody2D rb;
-    public float speed = 8.0f;
-    private Animator playerAnimator;
+    public float moveSpeed = 5f;
+    public float projectileSpeed = 10f;
+    public GameObject projectilePrefab;
 
-    // Start is called before the first frame update
-    void Start()
+    private Rigidbody2D rb;
+    public Animator animator;
+
+    private bool isShooting = false;
+    private float shootTimer = 0f;
+    public float shootInterval = 0.3f; // 투사체 발사 간격 (초)
+
+    private Vector2 shootDirection = Vector2.zero;
+
+    private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        this.playerAnimator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        //이동
-        float xInput = Input.GetAxis("Horizontal");
-        float yInput = Input.GetAxis("Vertical");
+        // 플레이어 이동
+        Vector2 moveDirection = Vector2.zero;
+        if (Input.GetKey(KeyCode.A))
+        {
+            moveDirection.x = -1;
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            moveDirection.x = 1;
+        }
 
-        //실제 이동 속도를 입력값과 이동 속력을 사용해 결정
-        float xSpeed = xInput * speed;
-        float ySpeed = yInput * speed;
+        if (Input.GetKey(KeyCode.W))
+        {
+            moveDirection.y = 1;
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            moveDirection.y = -1;
+        }
 
-        Vector2 newVelocity = new Vector2(xSpeed, ySpeed); //2D 게임이므로 Vector3를 쓸 필요가 없음
-        //리지드바디의 속도에 newVelocity 할당
-        rb.velocity = newVelocity;
+        rb.velocity = moveDirection.normalized * moveSpeed;
 
-        playerAnimator.SetFloat("HorizontalAxis", Input.GetAxis("Horizontal"));
+        // 투사체 발사
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            StartShooting(Vector2.left);
+            animator.SetInteger("CharacterMoveState", 3);
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            StartShooting(Vector2.right);
+            animator.SetInteger("CharacterMoveState", 2);
+        }
+        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            StartShooting(Vector2.up);
+            animator.SetInteger("CharacterMoveState", 1);
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            StartShooting(Vector2.down);
+            animator.SetInteger("CharacterMoveState", 0);
+        }
+
+        // 화살표 키가 눌리지 않았을 때 발사 중지
+        if (!Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow) &&
+            !Input.GetKey(KeyCode.UpArrow) && !Input.GetKey(KeyCode.DownArrow))
+        {
+            StopShooting();
+        }
 
 
-        //if (rb.velocity.x! < 0)
-        //{
-        //    playerAnimator.SetBool("Walk_Left", true);
-        //}
-        //else
-        //{
-        //    playerAnimator.SetBool("Walk_Left", false);
-        //}
+        // 발사 간격 체크
+        if (isShooting)
+        {
+            shootTimer += Time.deltaTime;
+            if (shootTimer >= shootInterval)
+            {
+                ShootProjectile();
+                shootTimer = 0f;
+            }
+        }
+    }
+
+    void StartShooting(Vector2 direction)
+    {
+        isShooting = true;
+        shootDirection = direction; // 발사 방향 설정
+        shootTimer = 0f; // 총알이 바로 발사되도록 타이머 초기화
+    }
+
+    void ShootProjectile()
+    {
+        if (projectilePrefab != null)
+        {
+            GameObject projectile = Instantiate(projectilePrefab, transform.position + new Vector3(shootDirection.x, shootDirection.y, 0) * 0.2f, Quaternion.identity);
+            Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
+            if (projectileRb != null)
+            {
+                projectileRb.velocity = shootDirection * projectileSpeed;
+            }
+            Destroy(projectile, 1.0f);
+        }
+    }
+
+    void StopShooting()
+    {
+        isShooting = false;
+        shootTimer = 0f;
     }
 }
+
