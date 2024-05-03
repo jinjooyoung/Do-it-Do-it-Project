@@ -7,7 +7,7 @@ public class Attack : MonoBehaviour
 {
 
     //트리거 충돌 시 자동으로 실행되는 메서드
-    void OnTriggerStay(Collider other)
+    void OnTriggerEnter2D(Collider2D other)
     {    //충돌한 상대방 게임 오브젝트가 player 태그를 가진 경우
         if (other.tag == "Monster")
         {

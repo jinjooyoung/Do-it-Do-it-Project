@@ -11,12 +11,12 @@ public class PlayerControllerQ : MonoBehaviour
 
     private float curTime = 0f; // 현재 쿨다운 시간
     private Vector2 lastMoveDirection = Vector2.right; // 플레이어의 마지막 이동 방향, 기본값은 오른쪽
-    private Rigidbody rb;
+    private Rigidbody2D rb;
     private Animator playerAnimator;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody2D>();
         this.playerAnimator = GetComponent<Animator>();
     }
 
@@ -49,7 +49,7 @@ public class PlayerControllerQ : MonoBehaviour
             GameObject attack= Instantiate(attackPrefab, 
                 transform.position + (Vector3)lastMoveDirection * attackRange, Quaternion.identity);
             //닷지 게임의 BulletSpawner코드 참고
-            Destroy(attack, 5 * Time.deltaTime);
+            Destroy(attack, 15* Time.deltaTime);
 
 
             // 공격 쿨다운 설정
