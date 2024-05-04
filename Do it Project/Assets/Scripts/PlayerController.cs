@@ -18,15 +18,28 @@ public class PlayerController : MonoBehaviour
     private Vector2 shootDirection = Vector2.zero;
 
     public GameManager gameManager;
+    public bool isPlayingSequence = false;
+    public bool isBlockMoveSequence = false;
+    public int MoveTemp = 0;
 
     private void Start()
     {
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
+        if(isBlockMoveSequence)
+        {
+            // 현재 위치에서 목표 위치로 이동하는 보간된 값 계산
+            transform.position = Vector3.Lerp(transform.position, gameManager.MapBlock[MoveTemp].transform.position, 0.05f * Time.deltaTime);            
+        }
+
+        if (isPlayingSequence)
+            return;
+
         // 플레이어 이동
         Vector2 moveDirection = Vector2.zero;
         if (Input.GetKey(KeyCode.A))
@@ -120,12 +133,34 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-        if(collision.gameObject.tag == "DOOR")
+        Debug.Log(collision.gameObject);
+        if(collision.gameObject.tag == "Door")
         {
-            gameManager.MoveBlock(2);
+            DoorObject temp = collision.gameObject.GetComponent<DoorObject>();
+            if(temp != null)
+            {
+                if(temp.DoorBlockIndex == gameManager.PlayerBlockIndex)
+                {                   
+                    Invoke("MoveIndexSet", 1.0f);
+                    MoveTemp = temp.MoveToIndex;
+                    gameManager.MoveBlock(temp.MoveToIndex);
+                    isPlayingSequence = true;
+                    isBlockMoveSequence = true;
+                }               
+            }
+            else
+            {
+                Debug.LogError("Door 컴포넌트가 없음");
+            }
         }
+    }
 
+    public void MoveIndexSet()
+    {
+        gameManager.PlayerBlockIndex =  MoveTemp;
+        isPlayingSequence = false;
+        isBlockMoveSequence = false;
+;
     }
 }
 

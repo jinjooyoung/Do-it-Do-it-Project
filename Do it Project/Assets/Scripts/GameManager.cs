@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] MapBlock = new GameObject[10];
     public CameraController cameraController;
+    public int PlayerBlockIndex = 1;
 
     // Start is called before the first frame update
     void Start()
