@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 shootDirection = Vector2.zero;
 
+    public GameManager gameManager;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -78,7 +80,7 @@ public class PlayerController : MonoBehaviour
 
 
         // 발사 간격 체크
-        if (isShooting)   //isShooting 조건을 잘 모르겠어요.
+        if (isShooting)
         {
             shootTimer += Time.deltaTime;
             if (shootTimer >= shootInterval)
@@ -100,7 +102,7 @@ public class PlayerController : MonoBehaviour
     {
         if (projectilePrefab != null)
         {
-            GameObject projectile = Instantiate(projectilePrefab, transform.position + new Vector3(shootDirection.x, shootDirection.y, -0.03f) * 0.2f, Quaternion.identity);
+            GameObject projectile = Instantiate(projectilePrefab, transform.position + new Vector3(shootDirection.x, shootDirection.y, 0) * 0.2f, Quaternion.identity);
             Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
             if (projectileRb != null)
             {
@@ -116,5 +118,14 @@ public class PlayerController : MonoBehaviour
         shootTimer = 0f;
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        
+        if(collision.gameObject.tag == "DOOR")
+        {
+            gameManager.MoveBlock(2);
+        }
+
+    }
 }
 
