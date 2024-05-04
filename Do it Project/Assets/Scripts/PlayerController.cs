@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerController : MonoBehaviour
 {
@@ -31,12 +32,6 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if(isBlockMoveSequence)
-        {
-            // 현재 위치에서 목표 위치로 이동하는 보간된 값 계산
-            transform.position = Vector3.Lerp(transform.position, gameManager.MapBlock[MoveTemp].transform.position, 0.05f * Time.deltaTime);            
-        }
-
         if (isPlayingSequence)
             return;
 
@@ -117,6 +112,7 @@ public class PlayerController : MonoBehaviour
         {
             GameObject projectile = Instantiate(projectilePrefab, transform.position + new Vector3(shootDirection.x, shootDirection.y, 0) * 0.2f, Quaternion.identity);
             Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
+            projectile.GetComponent<Bullet>().bullettype = Bullet.BULLETTYPE.PLAYER;
             if (projectileRb != null)
             {
                 projectileRb.velocity = shootDirection * projectileSpeed;
@@ -143,6 +139,7 @@ public class PlayerController : MonoBehaviour
                 {                   
                     Invoke("MoveIndexSet", 1.0f);
                     MoveTemp = temp.MoveToIndex;
+                    StartMovingTowardsTarget(gameManager.MapBlock[MoveTemp].transform);
                     gameManager.MoveBlock(temp.MoveToIndex);
                     isPlayingSequence = true;
                     isBlockMoveSequence = true;
@@ -155,12 +152,27 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // 연출 시작 시 호출할 함수
+    public void StartMovingTowardsTarget(Transform target)
+    {
+        // 목표 위치의 1/5 위치를 계산합니다.
+        Vector3 destination = Vector3.Lerp(transform.position, target.position, 0.3f);
+
+        // DOTween을 사용하여 부드럽게 목표 위치의 1/5 위치로 이동합니다.
+        transform.DOMove(destination, 1.0f).SetEase(Ease.Linear);
+    }
+
     public void MoveIndexSet()
     {
         gameManager.PlayerBlockIndex =  MoveTemp;
         isPlayingSequence = false;
         isBlockMoveSequence = false;
 ;
+    }
+
+    public void Die()
+    {
+        Debug.Log("플레이어 사망");
     }
 }
 
