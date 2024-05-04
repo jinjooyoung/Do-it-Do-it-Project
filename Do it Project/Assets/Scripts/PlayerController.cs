@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
 
 
         // 발사 간격 체크
-        if (isShooting)
+        if (isShooting)   //isShooting 조건을 잘 모르겠어요.
         {
             shootTimer += Time.deltaTime;
             if (shootTimer >= shootInterval)
@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
     {
         if (projectilePrefab != null)
         {
-            GameObject projectile = Instantiate(projectilePrefab, transform.position + new Vector3(shootDirection.x, shootDirection.y, 0) * 0.2f, Quaternion.identity);
+            GameObject projectile = Instantiate(projectilePrefab, transform.position + new Vector3(shootDirection.x, shootDirection.y, -0.03f) * 0.2f, Quaternion.identity);
             Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
             if (projectileRb != null)
             {
@@ -115,5 +115,6 @@ public class PlayerController : MonoBehaviour
         isShooting = false;
         shootTimer = 0f;
     }
+
 }
 
