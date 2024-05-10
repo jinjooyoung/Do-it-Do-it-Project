@@ -137,7 +137,7 @@ public class PlayerController : MonoBehaviour
             {
                 if(temp.DoorBlockIndex == gameManager.PlayerBlockIndex)
                 {                   
-                    Invoke("MoveIndexSet", 1.0f);
+                    Invoke("MoveIndexSet", 2.0f);
                     MoveTemp = temp.MoveToIndex;
                     StartMovingTowardsTarget(gameManager.MapBlock[MoveTemp].transform);
                     gameManager.MoveBlock(temp.MoveToIndex);
