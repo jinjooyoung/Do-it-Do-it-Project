@@ -3,7 +3,14 @@ guid: 24fbb1e1a3622494ca82acbda444bc18
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - missilePrefab: {fileID: 4887505495073008501, guid: 23af483143d351a49b0182577cc17cfd, type: 3}
+  - player: {instanceID: 0}
+  - gameManager: {instanceID: 0}
+  - monsteranimator: {instanceID: 0}
+  - slaimPf: {fileID: 7561955051879913808, guid: b996860fb7d80724cb64747d206740df, type: 3}
+  - mousePf: {fileID: 411158855291286088, guid: 470707138225b364ba8e4703d5989c73, type: 3}
+  - dogPf: {fileID: 8557156756823235776, guid: 2e2a95f39e36cd04bbb8dcb4c08a85a7, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

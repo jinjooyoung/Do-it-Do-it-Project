@@ -13,22 +13,58 @@ public class EnemyController : MonoBehaviour
 
     public GameManager gameManager;
 
-    // Start is called before the first frame update
+    public Animator monsteranimator;
+    private string currentAnimation = "";
+    public GameObject slaimPf;
+    public GameObject mousePf;
+    public GameObject dogPf;
+    bool isAniStart = false;
+
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+
+    }
+    void ChangeAnimation(string animation, float crossfade = 0.2f)  //애니메이션!!
+    {
+        if (currentAnimation != animation)
+        {
+            currentAnimation = animation;
+            if (slaimPf != null) monsteranimator.CrossFade(animation, crossfade);
+            if (mousePf != null) monsteranimator.CrossFade(animation, crossfade);
+            if (dogPf != null) monsteranimator.CrossFade(animation, crossfade);
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (gameManager.PlayerBlockIndex != BlockIndex)
             return;
+        isAniStart = true;
+        if(isAniStart == true)
+        {
+           monsteranimator = GetComponent<Animator>();
+        }
 
-        // 플레이어 방향으로 이동
-        transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * Time.deltaTime);
-
+            // 플레이어 방향으로 이동
+            transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * Time.deltaTime);
+       
+        if (transform.position.x < player.position.x)
+        {
+            ChangeAnimation("RightMove");
+            if (slaimPf != null) monsteranimator.SetInteger("move", 1);
+            if (mousePf != null) monsteranimator.SetInteger("move", 1);
+            if (dogPf != null)monsteranimator.SetInteger("move", 1);
+        }
+        if (transform.position.x > player.position.x)
+        {
+            ChangeAnimation("LeftMove");
+            if (slaimPf != null) monsteranimator.SetInteger("move", 2);
+            if (mousePf != null) monsteranimator.SetInteger("move", 2);
+            if (dogPf != null) monsteranimator.SetInteger("move", 2);
+        }
         fireTime += Time.deltaTime;
 
         if(fireTime >= fireRate)

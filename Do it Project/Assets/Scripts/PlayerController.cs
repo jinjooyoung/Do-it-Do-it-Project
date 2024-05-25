@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,7 +11,8 @@ public class PlayerController : MonoBehaviour
     public GameObject projectilePrefab;
 
     private Rigidbody2D rb;
-    public Animator animator;
+    public Animator animator;                   //애니메이션!!
+    private string currentAnimation = "";       //애니메이션!!
 
     private bool isShooting = false;
     private float shootTimer = 0f;
@@ -22,12 +24,24 @@ public class PlayerController : MonoBehaviour
     public bool isPlayingSequence = false;
     public bool isBlockMoveSequence = false;
     public int MoveTemp = 0;
+    bool isAni = false;
+
+    Vector2 moveDirection;
 
     private void Start()
     {
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();   //애니메이션!!
+    }
+
+    void ChangeAnimation(string animation, float crossfade = 0.2f)  //애니메이션!!
+    {
+        if(currentAnimation != animation)
+        {
+            currentAnimation = animation;
+            animator.CrossFade(animation, crossfade);
+        }
     }
 
     private void Update()
@@ -36,47 +50,60 @@ public class PlayerController : MonoBehaviour
             return;
 
         // 플레이어 이동
-        Vector2 moveDirection = Vector2.zero;
-        if (Input.GetKey(KeyCode.A))
-        {
-            moveDirection.x = -1;
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            moveDirection.x = 1;
-        }
+        moveDirection = Vector2.zero;
+        if (Input.GetKey(KeyCode.A)) moveDirection.x = -1;
 
-        if (Input.GetKey(KeyCode.W))
-        {
-            moveDirection.y = 1;
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            moveDirection.y = -1;
-        }
+        else if (Input.GetKey(KeyCode.D)) moveDirection.x = 1;
+        
+        if (Input.GetKey(KeyCode.W)) moveDirection.y = 1;
+        
+        else if (Input.GetKey(KeyCode.S)) moveDirection.y = -1;
+        //이동키를 하나만 눌렀을 경우
+        if(moveDirection.x == -1 && moveDirection.y != -1 && moveDirection.y != 1) ChangeAnimation("LeftMove");
+        if(moveDirection.x == 1 && moveDirection.y != -1 && moveDirection.y != 1) ChangeAnimation("RightMove");
+        if (moveDirection.y == -1 && moveDirection.x != -1 && moveDirection.x != 1) ChangeAnimation("FrontMove");
+        if (moveDirection.y == 1 && moveDirection.x != -1 && moveDirection.x != 1) ChangeAnimation("BackMove");
+        //이동키를 두개를 같이 눌렀을 경우
+        if (moveDirection.x == 1 && moveDirection.y == -1) ChangeAnimation("RightMove");
+        if (moveDirection.x == 1 && moveDirection.y == 1) ChangeAnimation("RightMove");
+        if (moveDirection.y == -1 && moveDirection.x == -1) ChangeAnimation("LeftMove");
+        if (moveDirection.y == 1 && moveDirection.x == -1) ChangeAnimation("LeftMove");
+        //두개의 공격키를 눌렀을 경우의 오류수정
 
-        rb.velocity = moveDirection.normalized * moveSpeed;
+            rb.velocity = moveDirection.normalized * moveSpeed;
 
         // 투사체 발사
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             StartShooting(Vector2.left);
-            animator.SetInteger("CharacterMoveState", 3);
+            animator.SetBool("LeftAttack", true);
+            animator.SetBool("RightAttack", false);
+            animator.SetBool("BackAttack", false);
+            animator.SetBool("FrontAttack", false);
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             StartShooting(Vector2.right);
-            animator.SetInteger("CharacterMoveState", 2);
+            animator.SetBool("RightAttack", true);
+            animator.SetBool("LeftAttack", false);
+            animator.SetBool("BackAttack", false);
+            animator.SetBool("FrontAttack", false);
         }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             StartShooting(Vector2.up);
-            animator.SetInteger("CharacterMoveState", 1);
+            animator.SetBool("BackAttack", true);
+            animator.SetBool("LeftAttack", false);
+            animator.SetBool("RightAttack", false);
+            animator.SetBool("FrontAttack", false);
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             StartShooting(Vector2.down);
-            animator.SetInteger("CharacterMoveState", 0);
+            animator.SetBool("FrontAttack", true);
+            animator.SetBool("LeftAttack", false);
+            animator.SetBool("RightAttack", false);
+            animator.SetBool("BackAttack", false);
         }
 
         // 화살표 키가 눌리지 않았을 때 발사 중지
@@ -85,8 +112,19 @@ public class PlayerController : MonoBehaviour
         {
             StopShooting();
         }
-
-
+        if((moveDirection.x != 1 && moveDirection.x != -1 && moveDirection.y != 1 && moveDirection.y!= -1 && !Input.GetKey(KeyCode.LeftArrow) 
+            && !Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.UpArrow) && !Input.GetKey(KeyCode.DownArrow)))
+        {
+            ChangeAnimation("Idle");
+        }
+        //이동과 공격을 같이 하고 나서 공격을 멈췄을 때의 오류수정
+        if(shootDirection.x == -1 && moveDirection.x == -1 )
+        {
+            if (isAni == false && moveDirection.x == -1)
+            {
+                ChangeAnimation("Idle(2)");
+            }
+        }
         // 발사 간격 체크
         if (isShooting)
         {
@@ -95,6 +133,7 @@ public class PlayerController : MonoBehaviour
             {
                 ShootProjectile();
                 shootTimer = 0f;
+
             }
         }
     }
@@ -102,6 +141,7 @@ public class PlayerController : MonoBehaviour
     void StartShooting(Vector2 direction)
     {
         isShooting = true;
+        isAni = true;
         shootDirection = direction; // 발사 방향 설정
         shootTimer = 0f; // 총알이 바로 발사되도록 타이머 초기화
     }
@@ -124,9 +164,13 @@ public class PlayerController : MonoBehaviour
     void StopShooting()
     {
         isShooting = false;
+        isAni = false;
         shootTimer = 0f;
+        animator.SetBool("LeftAttack", false);
+        animator.SetBool("RightAttack", false);
+        animator.SetBool("BackAttack", false);
+        animator.SetBool("FrontAttack", false);
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log(collision.gameObject);
