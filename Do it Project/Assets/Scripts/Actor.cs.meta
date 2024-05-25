@@ -3,7 +3,12 @@ guid: 5e8f204d7339a1e4f9db93c28f2b9485
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - playeranimator: {instanceID: 0}
+  - monsteranimator: {instanceID: 0}
+  - slaimPf: {fileID: 7561955051879913808, guid: b996860fb7d80724cb64747d206740df, type: 3}
+  - mousePf: {fileID: 411158855291286088, guid: 470707138225b364ba8e4703d5989c73, type: 3}
+  - dogPf: {fileID: 8557156756823235776, guid: 2e2a95f39e36cd04bbb8dcb4c08a85a7, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

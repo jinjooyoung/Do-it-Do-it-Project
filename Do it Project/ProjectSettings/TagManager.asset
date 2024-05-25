@@ -50,6 +50,9 @@ TagManager:
   - name: Object
     uniqueID: 4129152037
     locked: 0
+  - name: Player
+    uniqueID: 764027765
+    locked: 0
   - name: BackGround_Front
     uniqueID: 3604627573
     locked: 0
