@@ -7,6 +7,10 @@ TagManager:
   - GameManager
   - Door
   - Enemy
+  - UIManager
+  - Pond
+  - Trap
+  - BossEnemy
   layers:
   - Default
   - TransparentFX

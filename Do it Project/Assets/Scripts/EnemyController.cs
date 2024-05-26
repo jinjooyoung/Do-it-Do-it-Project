@@ -47,8 +47,7 @@ public class EnemyController : MonoBehaviour
         {
            monsteranimator = GetComponent<Animator>();
         }
-
-            // 플레이어 방향으로 이동
+        // 플레이어 방향으로 이동
             transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * Time.deltaTime);
        
         if (transform.position.x < player.position.x)

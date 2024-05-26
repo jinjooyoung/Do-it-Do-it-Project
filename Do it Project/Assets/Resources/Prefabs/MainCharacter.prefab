@@ -33,7 +33,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.124, y: -1.302, z: -0.325}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -131,6 +131,7 @@ MonoBehaviour:
   isPlayingSequence: 0
   isBlockMoveSequence: 0
   MoveTemp: 0
+  UIManager: {fileID: 0}
 --- !u!70 &6144657133172069324
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -206,3 +207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthPoint: 10
+  monsteranimator: {fileID: 0}
+  slaimPf: {fileID: 0}
+  mousePf: {fileID: 0}
+  dogPf: {fileID: 0}

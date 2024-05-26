@@ -5,12 +5,7 @@ using UnityEngine;
 public class BossLazer : MonoBehaviour
 {
     public float rotateSpeed = 0.1f;
-
-    void Start()
-    {
-        
-    }
-
+    int Damage = 1;
 
     void Update()
     {
@@ -20,10 +15,10 @@ public class BossLazer : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag=="Player") {
-
-            print("ÄÉ¸¯ÅÍ »ç¸Á"); 
-           Destroy(collision.gameObject);
+        if(collision.gameObject.tag=="Player")
+        {
+            collision.gameObject.GetComponent<PlayerActor>().TakeDamage(Damage);
+         
         }
     }
 

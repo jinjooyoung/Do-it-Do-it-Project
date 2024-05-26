@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public bool isBlockMoveSequence = false;
     public int MoveTemp = 0;
     bool isAni = false;
+    public GameObject UIManager;
 
     Vector2 moveDirection;
 
@@ -122,7 +123,7 @@ public class PlayerController : MonoBehaviour
         {
             if (isAni == false && moveDirection.x == -1)
             {
-                ChangeAnimation("Idle(2)");
+                //ChangeAnimation("Idle(2)");
             }
         }
         // 발사 간격 체크
@@ -194,6 +195,10 @@ public class PlayerController : MonoBehaviour
                 Debug.LogError("Door 컴포넌트가 없음");
             }
         }
+       /* if (collision.gameObject.tag == "Trap")  //보스전 시작
+        {
+            UIManager.gameObject.GetComponent<UIManager>().GotoBoss();
+        }*/
     }
 
     // 연출 시작 시 호출할 함수
@@ -217,6 +222,13 @@ public class PlayerController : MonoBehaviour
     public void Die()
     {
         Debug.Log("플레이어 사망");
+    }
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Pond")
+        {
+            UIManager.gameObject.GetComponent<UIManager>().Clear();
+        }
     }
 }
 
