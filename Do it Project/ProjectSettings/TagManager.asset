@@ -11,6 +11,8 @@ TagManager:
   - Pond
   - Trap
   - BossEnemy
+  - Heal
+  - Heal2
   layers:
   - Default
   - TransparentFX

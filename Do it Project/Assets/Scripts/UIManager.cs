@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -30,11 +31,21 @@ public class UIManager : MonoBehaviour
     public GameObject cloud_1;
     public GameObject cloud_2;
     public GameObject cloud_3;
+    //보스용
+    public GameObject Boss;
+    //사운드
+    AudioSource sound;
+    [SerializeField] private AudioClip[] clip;
 
     private void Start()
     {
+        sound = GetComponent<AudioSource>();
+
         if (SceneManager.GetActiveScene().name == "MainGameScene") //튜토리얼창 키기설정
         {
+            sound.clip = clip[1];
+            sound.Play();
+
             isTut = true;
             TutorialUI.SetActive(true);
             playerRb = player.GetComponent<Rigidbody2D>();
@@ -43,8 +54,11 @@ public class UIManager : MonoBehaviour
     }
     private void Update()
     {
+
+
         if (SceneManager.GetActiveScene().name == "MainGameScene")  // 튜토리얼창 끄기설정
         {
+
             if (Input.GetKey(KeyCode.Escape))
             {
                 Timer += Time.deltaTime;
@@ -53,17 +67,21 @@ public class UIManager : MonoBehaviour
                 player.SetActive(true);
                 if (Timer >= 0.2f)
                     isTut = false;
+                sound.clip = clip[2];
+                sound.Play();
             }
-
+            
             if (Input.GetKeyUp(KeyCode.Escape) && isTut == false) //설정창 설정
             {
+                sound.clip = clip[1];
+                sound.Play();
+
                 SettingUI.SetActive(true);
                 playerRb.simulated = false;
             }
         }
         if(SceneManager.GetActiveScene().name == "StartUI")  //시작화면의 구룸애니메이션
         {
-           
             cloud1.transform.DOMoveX(300, 25f);
             cloud2.transform.DOMoveX(1280, 25f);
         }
@@ -89,6 +107,8 @@ public class UIManager : MonoBehaviour
         }
         if (Timer2 >= 49f)
         {
+            sound.clip = clip[5];
+
             isPlaying2 = true;
         }
         if(SceneManager.GetActiveScene().name == "GameOver")
@@ -128,22 +148,37 @@ public class UIManager : MonoBehaviour
             UIindex[0].SetActive(true);
         }
     }
+    public void Heal()
+    {
+        for(int i =10; i <=14;  i++)
+        {
+            UIindex[i].SetActive(true);
+            UIindex[i - 5].SetActive(false);
+            UIindex[i - 10].SetActive(false);
+        }
+    }
 
     public void StartGame() //시작씬에서 게임씬으로 이동
     {
+        sound.clip = clip[0];//버튼사운드
+        sound.Play();
         SceneManager.LoadScene("MainGameScene");
+
     }
     public void ExitGame() // 시작씬에서 게임나가기
     {
-//#if UNITY_EDITOR
-        //UnityEditor.EditorApplication.isPlaying = false;
-//#else
+        sound.clip = clip[0];//버튼사운드
+        sound.Play();
         Application.Quit();
-//#endif
+
     }
     public void OptionUI() // 시작씬에서 옵션씬으로 이동
     {
+        sound.clip = clip[0];//버튼사운드
+        sound.Play();
+        //DontDestroyOnLoad(sound);
         SceneManager.LoadScene("OptionUI");
+
 
     }
     public void BackToStart() // 설정창에서 시작씬으로 이동
@@ -153,8 +188,12 @@ public class UIManager : MonoBehaviour
     public void Continu()  // 설정창 끄기
     {
         if (SceneManager.GetActiveScene().name == "MainGameScene")
+        {
             SettingUI.SetActive(false);
             playerRb.simulated = true;
+        }
+        sound.clip = clip[2];
+        sound.Play();
     }
     public void Clear()
     {
@@ -166,7 +205,7 @@ public class UIManager : MonoBehaviour
     }
     public void GotoBoss()
     {
-        //SceneManager.LoadScene("BossScenes",LoadSceneMode.Additive);
+        Boss.SetActive(true);
     }
 
 }

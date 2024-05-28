@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2736263887593209163}
   - component: {fileID: 4346647191700735732}
   - component: {fileID: 980665862290599994}
-  - component: {fileID: 8347153104796848838}
+  - component: {fileID: -3559145730622187554}
   m_Layer: 0
   m_Name: Circle
   m_TagString: Untagged
@@ -149,7 +149,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &8347153104796848838
+--- !u!114 &-3559145730622187554
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,4 +162,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 1
-  bullettype: 0
+  bullettype: 1

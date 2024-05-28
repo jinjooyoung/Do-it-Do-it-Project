@@ -8,8 +8,7 @@ public class Bullet : MonoBehaviour
     public enum BULLETTYPE
     {
         PLAYER,
-        ENEMY,
-        //BOSSENEMY
+        ENEMY
     }
 
     public int Damage = 1;
@@ -28,18 +27,6 @@ public class Bullet : MonoBehaviour
             collision.gameObject.GetComponent<PlayerActor>().TakeDamage(Damage);
             Destroy(this.gameObject);
         }
-
-        //보스몬스터전용
-        /*if (collision.gameObject.tag == "BossEnemy" && bullettype == BULLETTYPE.PLAYER)
-        {
-            collision.gameObject.GetComponent<Actor>().TakeDamage(Damage);
-            Destroy(this.gameObject);
-        }
-        else if (collision.gameObject.tag == "Player" && bullettype == BULLETTYPE.BOSSENEMY)
-        {
-            collision.gameObject.GetComponent<PlayerActor>().TakeDamage(Damage);
-            Destroy(this.gameObject);
-        }*/
 
     }
 

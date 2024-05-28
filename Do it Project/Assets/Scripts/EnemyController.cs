@@ -19,7 +19,8 @@ public class EnemyController : MonoBehaviour
     public GameObject mousePf;
     public GameObject dogPf;
     bool isAniStart = false;
-
+    //사운드
+    public GameObject monsterAttack;
 
     void Start()
     {
@@ -42,6 +43,7 @@ public class EnemyController : MonoBehaviour
     {
         if (gameManager.PlayerBlockIndex != BlockIndex)
             return;
+
         isAniStart = true;
         if(isAniStart == true)
         {
@@ -49,13 +51,12 @@ public class EnemyController : MonoBehaviour
         }
         // 플레이어 방향으로 이동
             transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * Time.deltaTime);
-       
         if (transform.position.x < player.position.x)
         {
             ChangeAnimation("RightMove");
             if (slaimPf != null) monsteranimator.SetInteger("move", 1);
             if (mousePf != null) monsteranimator.SetInteger("move", 1);
-            if (dogPf != null)monsteranimator.SetInteger("move", 1);
+            if (dogPf != null) monsteranimator.SetInteger("move", 1);
         }
         if (transform.position.x > player.position.x)
         {
@@ -75,6 +76,7 @@ public class EnemyController : MonoBehaviour
 
     void Shoot()
     {
+        monsterAttack.GetComponent<AudioSource>().Play();
         // 미사일 프리팹을 인스턴스화하여 발사 위치에서 생성합니다.
         GameObject temp = Instantiate(missilePrefab, transform.position, Quaternion.identity);
 

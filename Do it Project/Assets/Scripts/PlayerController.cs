@@ -19,18 +19,24 @@ public class PlayerController : MonoBehaviour
     public float shootInterval = 0.3f; // 투사체 발사 간격 (초)
 
     private Vector2 shootDirection = Vector2.zero;
+    Vector2 moveDirection;
 
     public GameManager gameManager;
     public bool isPlayingSequence = false;
     public bool isBlockMoveSequence = false;
     public int MoveTemp = 0;
-    bool isAni = false;
     public GameObject UIManager;
-
-    Vector2 moveDirection;
+    AudioSource sound;
+    [SerializeField] private AudioClip[] clip;
+    //사운드
+    public GameObject Attack;
 
     private void Start()
     {
+        sound = GetComponent<AudioSource>();
+        sound.clip = clip[1];
+        sound.Play();
+
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();   //애니메이션!!
@@ -44,7 +50,6 @@ public class PlayerController : MonoBehaviour
             animator.CrossFade(animation, crossfade);
         }
     }
-
     private void Update()
     {
         if (isPlayingSequence)
@@ -55,12 +60,13 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.A)) moveDirection.x = -1;
 
         else if (Input.GetKey(KeyCode.D)) moveDirection.x = 1;
-        
+
         if (Input.GetKey(KeyCode.W)) moveDirection.y = 1;
-        
+
         else if (Input.GetKey(KeyCode.S)) moveDirection.y = -1;
+
         //이동키를 하나만 눌렀을 경우
-        if(moveDirection.x == -1 && moveDirection.y != -1 && moveDirection.y != 1) ChangeAnimation("LeftMove");
+        if (moveDirection.x == -1 && moveDirection.y != -1 && moveDirection.y != 1) ChangeAnimation("LeftMove");
         if(moveDirection.x == 1 && moveDirection.y != -1 && moveDirection.y != 1) ChangeAnimation("RightMove");
         if (moveDirection.y == -1 && moveDirection.x != -1 && moveDirection.x != 1) ChangeAnimation("FrontMove");
         if (moveDirection.y == 1 && moveDirection.x != -1 && moveDirection.x != 1) ChangeAnimation("BackMove");
@@ -121,7 +127,7 @@ public class PlayerController : MonoBehaviour
         //이동과 공격을 같이 하고 나서 공격을 멈췄을 때의 오류수정
         if(shootDirection.x == -1 && moveDirection.x == -1 )
         {
-            if (isAni == false && moveDirection.x == -1)
+            if (isShooting == false && moveDirection.x == -1)
             {
                 //ChangeAnimation("Idle(2)");
             }
@@ -141,14 +147,15 @@ public class PlayerController : MonoBehaviour
 
     void StartShooting(Vector2 direction)
     {
+        Attack.GetComponent<AudioSource>().Play();//공격사운드시작
         isShooting = true;
-        isAni = true;
         shootDirection = direction; // 발사 방향 설정
         shootTimer = 0f; // 총알이 바로 발사되도록 타이머 초기화
     }
 
     void ShootProjectile()
     {
+
         if (projectilePrefab != null)
         {
             GameObject projectile = Instantiate(projectilePrefab, transform.position + new Vector3(shootDirection.x, shootDirection.y, 0) * 0.2f, Quaternion.identity);
@@ -165,12 +172,12 @@ public class PlayerController : MonoBehaviour
     void StopShooting()
     {
         isShooting = false;
-        isAni = false;
         shootTimer = 0f;
         animator.SetBool("LeftAttack", false);
         animator.SetBool("RightAttack", false);
         animator.SetBool("BackAttack", false);
         animator.SetBool("FrontAttack", false);
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -188,16 +195,35 @@ public class PlayerController : MonoBehaviour
                     gameManager.MoveBlock(temp.MoveToIndex);
                     isPlayingSequence = true;
                     isBlockMoveSequence = true;
-                }               
+                }
+                if(temp.MoveToIndex == 40) //방을 이동했을 때 사운드변경
+                {
+                    sound.clip = clip[2];
+                    sound.Play();
+                }
+                if(temp.MoveToIndex == 54)
+                {
+                    sound.clip = clip[3];
+                    sound.Play();
+                }
+                if(temp.MoveToIndex == 55)
+                {
+                    sound.clip = clip[4];
+                    sound.Play();
+                }
             }
             else
             {
                 Debug.LogError("Door 컴포넌트가 없음");
             }
         }
-       /* if (collision.gameObject.tag == "Trap")  //보스전 시작
+        if (collision.gameObject.tag == "Trap")  //보스전 시작
         {
             UIManager.gameObject.GetComponent<UIManager>().GotoBoss();
+        }
+       /* if (collision.gameObject.tag == "Heal")  //피회복
+        {
+            playerActor.gameObject.GetComponent<PlayerActor>().HealthPoint = 10;  //다른 방법으로 기능은 구현했지만 이것은 왜 안된 것일까?
         }*/
     }
 
