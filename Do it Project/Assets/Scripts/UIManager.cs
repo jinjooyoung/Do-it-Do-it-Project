@@ -89,8 +89,8 @@ public class UIManager : MonoBehaviour
         {
             credit.SetActive(true);
             isPlaying = true;
-            credit1.transform.position = Vector2.MoveTowards(credit1.transform.position, endPosition1.transform.position, 0.9f);
-            credit2.transform.position = Vector2.MoveTowards(credit2.transform.position, endPosition2.transform.position, 0.9f);
+            credit1.transform.position = Vector2.MoveTowards(credit1.transform.position, endPosition1.transform.position, 0.71f);
+            credit2.transform.position = Vector2.MoveTowards(credit2.transform.position, endPosition2.transform.position, 0.71f);
             if(isPlaying2 == true)
             {
                 credit.SetActive(false);
@@ -105,9 +105,10 @@ public class UIManager : MonoBehaviour
         {
             Timer2 += Time.deltaTime;
         }
-        if (Timer2 >= 49f)
+        if (Timer2 >= 43f)
         {
             sound.clip = clip[5];
+            sound.Play();
 
             isPlaying2 = true;
         }

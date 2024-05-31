@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         sound = GetComponent<AudioSource>();
+        sound.loop = true;
         sound.clip = clip[1];
         sound.Play();
 
@@ -208,6 +209,7 @@ public class PlayerController : MonoBehaviour
                 }
                 if(temp.MoveToIndex == 55)
                 {
+                    sound.loop = false;
                     sound.clip = clip[4];
                     sound.Play();
                 }
