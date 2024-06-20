@@ -197,12 +197,13 @@ public class PlayerController : MonoBehaviour
                     isPlayingSequence = true;
                     isBlockMoveSequence = true;
                 }
-                if(temp.MoveToIndex == 40) //방을 이동했을 때 사운드변경
+                if(temp.DoorBlockIndex == 40 ) //방을 이동했을 때 사운드변경
                 {
                     sound.clip = clip[2];
                     sound.Play();
+
                 }
-                if(temp.MoveToIndex == 54)
+                if(temp.MoveToIndex == 54) // 보스방
                 {
                     sound.clip = clip[3];
                     sound.Play();

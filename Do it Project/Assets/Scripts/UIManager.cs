@@ -89,8 +89,8 @@ public class UIManager : MonoBehaviour
         {
             credit.SetActive(true);
             isPlaying = true;
-            credit1.transform.position = Vector2.MoveTowards(credit1.transform.position, endPosition1.transform.position, 0.71f);
-            credit2.transform.position = Vector2.MoveTowards(credit2.transform.position, endPosition2.transform.position, 0.71f);
+            credit1.transform.position = Vector2.MoveTowards(credit1.transform.position, endPosition1.transform.position, 100f * Time.deltaTime);
+            credit2.transform.position = Vector2.MoveTowards(credit2.transform.position, endPosition2.transform.position, 100f * Time.deltaTime);
             if(isPlaying2 == true)
             {
                 credit.SetActive(false);

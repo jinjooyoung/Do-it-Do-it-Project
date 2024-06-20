@@ -13,6 +13,7 @@ TagManager:
   - BossEnemy
   - Heal
   - Heal2
+  - Heal3
   layers:
   - Default
   - TransparentFX

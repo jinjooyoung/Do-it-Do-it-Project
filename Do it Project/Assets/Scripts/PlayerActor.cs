@@ -10,6 +10,7 @@ public class PlayerActor : MonoBehaviour
     bool isheal = false;
     bool isEnd = false;
     bool isEnd2 = false;
+    bool isEnd3 = false;
     //게임 사운드
     public GameObject hurtSound;
     void Start()
@@ -61,6 +62,14 @@ public class PlayerActor : MonoBehaviour
             {
                 isheal = true;
                 isEnd2 = true;
+            }
+        } 
+        if (isEnd3 == false)
+        {
+            if (collision.gameObject.tag == "Heal3")
+            {
+                isheal = true;
+                isEnd3 = true;
             }
         } 
 
